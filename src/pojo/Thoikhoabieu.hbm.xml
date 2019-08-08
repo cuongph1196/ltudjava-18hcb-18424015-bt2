@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 8, 2019 11:08:34 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojo.Thoikhoabieu" table="thoikhoabieu" catalog="dbqlsv" optimistic-lock="version">
+        <composite-id name="id" class="pojo.ThoikhoabieuId">
+            <key-property name="maMonHoc" type="string">
+                <column name="MaMonHoc" length="50" />
+            </key-property>
+            <key-property name="lop" type="string">
+                <column name="Lop" length="50" />
+            </key-property>
+        </composite-id>
+        <property name="tenMonHoc" type="string">
+            <column name="TenMonHoc" length="65535" />
+        </property>
+        <property name="phongHoc" type="string">
+            <column name="PhongHoc" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>
