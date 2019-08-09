@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ltudjava.pkg18hcb.pkg18424015.bt2.DAO;
+package dao;
 
 import connection.Controller;
 import java.util.List;

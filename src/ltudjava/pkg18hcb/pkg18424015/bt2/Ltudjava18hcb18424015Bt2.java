@@ -8,7 +8,7 @@ package ltudjava.pkg18hcb.pkg18424015.bt2;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import ltudjava.pkg18hcb.pkg18424015.bt2.DAO.SinhVienDAO;
+import dao.SinhVienDAO;
 import pojo.Sinhvien;
 
 /**
