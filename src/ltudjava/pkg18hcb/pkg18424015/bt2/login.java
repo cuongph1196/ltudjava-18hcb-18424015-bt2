@@ -5,6 +5,8 @@
  */
 package ltudjava.pkg18hcb.pkg18424015.bt2;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author phanc

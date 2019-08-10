@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import dao.SinhVienDAO;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import pojo.Sinhvien;
 
 /**
@@ -67,11 +69,27 @@ public class Ltudjava18hcb18424015Bt2 {
 //                }
 //            }
 
-        boolean kq = SinhVienDAO.xoaSinhVien("0312171");
-        if (kq == true) {
-            System.out.println("Xóa thành công");
-        } else {
-            System.out.println("Xóa thất bại");
-        }
+//        boolean kq = SinhVienDAO.xoaSinhVien("0312171");
+//        if (kq == true) {
+//            System.out.println("Xóa thành công");
+//        } else {
+//            System.out.println("Xóa thất bại");
+//        }
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+//                JFrame swing = new JFrame("Login");
+//                swing.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//                swing.setVisible(true);
+//                swing.setSize(400, 300);
+                Swing login = new Swing("Login");
+                login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                login.setVisible(true);
+                login.setSize(400, 300);
+            }
+        });
+        
+        
     }
 }
