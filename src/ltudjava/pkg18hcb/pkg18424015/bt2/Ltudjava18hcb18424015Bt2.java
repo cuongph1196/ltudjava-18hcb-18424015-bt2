@@ -83,10 +83,11 @@ public class Ltudjava18hcb18424015Bt2 {
 //                swing.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //                swing.setVisible(true);
 //                swing.setSize(400, 300);
-                Swing login = new Swing("Login");
+                login login = new login("Login");
                 login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 login.setVisible(true);
-                login.setSize(400, 300);
+                login.setSize(400, 200);
+                //login.setMenuBar();
             }
         });
         
