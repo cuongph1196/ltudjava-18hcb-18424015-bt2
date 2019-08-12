@@ -13,6 +13,8 @@ public class Sinhvien  implements java.io.Serializable {
      private String hoTen;
      private Boolean gioiTinh;
      private String cmnd;
+     private String matkhau;
+     private String matkhaumacdinh;
 
     public Sinhvien() {
     }
@@ -21,10 +23,12 @@ public class Sinhvien  implements java.io.Serializable {
     public Sinhvien(String mssv) {
         this.mssv = mssv;
     }
-    public Sinhvien(String mssv, String hoTen, Boolean gioiTinh, String cmnd) {
+    public Sinhvien(String mssv, String hoTen, Boolean gioiTinh, String cmnd, String matkhaumacdinh, String matkhau) {
        this.mssv = mssv;
        this.hoTen = hoTen;
        this.gioiTinh = gioiTinh;
+       this.matkhaumacdinh = matkhaumacdinh;
+       this.matkhau = matkhau;
        this.cmnd = cmnd;
     }
    
@@ -55,6 +59,22 @@ public class Sinhvien  implements java.io.Serializable {
     
     public void setCmnd(String cmnd) {
         this.cmnd = cmnd;
+    }
+    
+    public String getMatKhauMacDinh() {
+        return this.matkhaumacdinh;
+    }
+    
+    public void setMatKhauMacDinh(String matKhauMacDinh) {
+        this.matkhaumacdinh = matKhauMacDinh;
+    }
+    
+    public String getMatKhau() {
+        return this.matkhau;
+    }
+    
+    public void setMatKhau(String matKhau) {
+        this.matkhau = matKhau;
     }
 
 

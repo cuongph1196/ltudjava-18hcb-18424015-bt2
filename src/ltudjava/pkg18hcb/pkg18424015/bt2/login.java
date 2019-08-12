@@ -5,27 +5,32 @@
  */
 package ltudjava.pkg18hcb.pkg18424015.bt2;
 
+import dao.SinhVienDAO;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import pojo.Sinhvien;
 
 /**
  *
  * @author phanc
  */
-public class login extends JFrame{
+public class login extends JFrame implements ActionListener{
     JPanel pnLogin;
     JLabel lbUsername,lbPassword;
     JTextField txtUsername;
     JPasswordField txtPassword;
-    JButton btnLogin;
+    JButton btnLogin, btnExit;
     public login(String tieuDe){
         super(tieuDe);
         
@@ -53,7 +58,10 @@ public class login extends JFrame{
         //button
         btnLogin = new JButton();
         btnLogin.setText("Đăng nhập");
-        btnLogin.setBounds(150, 110, 100, 30);
+        btnLogin.setBounds(100, 110, 100, 30);
+        btnExit = new JButton();
+        btnExit.setText("Thoát");
+        btnExit.setBounds(200, 110, 100, 30);
         
         
         //add lablel và text field vào panel
@@ -62,11 +70,42 @@ public class login extends JFrame{
         pnLogin.add(txtUsername);
         pnLogin.add(txtPassword);
         pnLogin.add(btnLogin);
+        pnLogin.add(btnExit);
         
         
         //add panel vào swing
         //this.add(pnLogin);
         Container con = getContentPane();
         con.add(pnLogin);
+        
+        btnLogin.addActionListener(this);
+        btnExit.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == btnLogin){
+            String tk = txtUsername.getText().toString();
+            char[] pass = txtPassword.getPassword();
+            String mk = new String(pass);
+            Sinhvien sv = SinhVienDAO.layThongTinSinhVien(tk);
+            if(sv!= null){
+                System.out.println(mk);
+                System.out.println(sv.getMatKhau());
+                if( mk.equals(sv.getMatKhau())){
+                    System.out.println("Đăng nhập thành công");
+                    JOptionPane.showMessageDialog(null,"Đăng nhập thành công !!!");
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Đăng nhập thất bại !!!");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null,"Tài khoản không tồn tại !!!");
+                System.out.println("Tài khoản không tồn tại");
+            }
+        }
+        if(e.getSource() == btnExit){
+            System.exit(0);
+        }
     }
 }

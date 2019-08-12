@@ -17,5 +17,11 @@
         <property name="cmnd" type="string">
             <column name="CMND" length="20" />
         </property>
+        <property name="matKhauMacDinh" type="string">
+            <column name="MatKhauMacDinh" length="50" />
+        </property>
+        <property name="matKhau" type="string">
+            <column name="MatKhau" length="50" />
+        </property>
     </class>
 </hibernate-mapping>
