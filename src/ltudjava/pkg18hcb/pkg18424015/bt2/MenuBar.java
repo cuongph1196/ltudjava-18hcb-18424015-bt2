@@ -5,6 +5,8 @@
  */
 package ltudjava.pkg18hcb.pkg18424015.bt2;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -34,5 +36,7 @@ public class MenuBar extends JFrame{
         jmenubar.add(jEdit);
         
         this.setJMenuBar(jmenubar);
+//        Container con = getContentPane();
+//        con.add(BorderLayout.NORTH, jmenubar);
     }
 }

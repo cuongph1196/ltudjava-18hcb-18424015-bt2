@@ -25,13 +25,13 @@ import pojo.Sinhvien;
  *
  * @author phanc
  */
-public class login extends JFrame implements ActionListener{
+public class DangNhap extends JFrame implements ActionListener{
     JPanel pnLogin;
     JLabel lbUsername,lbPassword;
     JTextField txtUsername;
     JPasswordField txtPassword;
     JButton btnLogin, btnExit;
-    public login(String tieuDe){
+    public DangNhap(String tieuDe){
         super(tieuDe);
         
         pnLogin = new JPanel();
@@ -90,11 +90,15 @@ public class login extends JFrame implements ActionListener{
             String mk = new String(pass);
             Sinhvien sv = SinhVienDAO.layThongTinSinhVien(tk);
             if(sv!= null){
-                System.out.println(mk);
-                System.out.println(sv.getMatKhau());
                 if( mk.equals(sv.getMatKhau())){
                     System.out.println("Đăng nhập thành công");
-                    JOptionPane.showMessageDialog(null,"Đăng nhập thành công !!!");
+//                    JOptionPane.showMessageDialog(null,"Đăng nhập thành công !!!");
+                    //main
+                    MenuBar swing = new MenuBar("Main");
+                    swing.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    swing.setVisible(true);
+                    swing.setSize(500, 300);
+                    this.setVisible(false);
                 }
                 else{
                     JOptionPane.showMessageDialog(null,"Đăng nhập thất bại !!!");
