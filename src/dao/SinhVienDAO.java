@@ -12,6 +12,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojo.Sinhvien;
+import dao.SinhVienDAO;
 
 /**
  *
@@ -39,6 +40,21 @@ public class SinhVienDAO {
         Session session = Controller.getSessionFactory().openSession();
         try {
             sv = (Sinhvien) session.get(Sinhvien.class, maSinhVien);
+        } catch (HibernateException ex) {
+            //Log the exception
+            System.err.println(ex);
+        } finally {
+            session.close();
+        }
+        return sv;
+    }
+    
+    public static Sinhvien kiemTraDangNhap(String maSinhVien, String matKhau) {
+        Sinhvien sv = null;
+        Session session = Controller.getSessionFactory().openSession();
+        try {
+            String query = "select sv.mssv from Sinhvien sv where sv.mssv='" + maSinhVien + "' and sv.matkhau='" + matKhau + "'";
+            sv = (Sinhvien) session.get(query,sv);
         } catch (HibernateException ex) {
             //Log the exception
             System.err.println(ex);

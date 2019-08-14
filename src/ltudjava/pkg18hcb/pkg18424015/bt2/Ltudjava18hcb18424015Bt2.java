@@ -79,15 +79,15 @@ public class Ltudjava18hcb18424015Bt2 {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-//                DangNhap login = new DangNhap("Login");
-//                login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//                login.setVisible(true);
-//                login.setSize(400, 200);
+                DangNhap login = new DangNhap("Login");
+                login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                login.setVisible(true);
+                login.setSize(400, 200);
 
-                Import_DanhSachLop imp = new Import_DanhSachLop("DS Lớp");
-                imp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                imp.setVisible(true);
-                imp.setSize(400, 200);
+//                Import_DanhSachLop imp = new Import_DanhSachLop("DS Lớp");
+//                imp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//                imp.setVisible(true);
+//                imp.setSize(400, 200);
             }
         });
         

@@ -94,7 +94,7 @@ public class DangNhap extends JFrame implements ActionListener{
                     System.out.println("Đăng nhập thành công");
 //                    JOptionPane.showMessageDialog(null,"Đăng nhập thành công !!!");
                     //main
-                    MenuBar swing = new MenuBar("Main");
+                    Home_Layout swing = new Home_Layout("Main");
                     swing.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     swing.setVisible(true);
                     swing.setSize(500, 300);
