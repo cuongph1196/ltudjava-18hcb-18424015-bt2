@@ -48,5 +48,6 @@ Contributor(s):
     <mapping resource="pojo/Sinhvien.hbm.xml"/>
     <mapping resource="pojo/Thoikhoabieu.hbm.xml"/>
     <mapping resource="pojo/Diem.hbm.xml"/>
+    <mapping resource="pojo/Taikhoan.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

@@ -3,25 +3,13 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Aug 16, 2019 11:15:37 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="pojo.Sinhvien" table="sinhvien" catalog="dbqlsv" optimistic-lock="version">
+    <class name="pojo.Taikhoan" table="taikhoan" catalog="dbqlsv" optimistic-lock="version">
         <id name="mssv" type="string">
             <column name="MSSV" length="50" />
             <generator class="assigned" />
         </id>
-        <property name="stt" type="java.lang.Integer">
-            <column name="STT" />
-        </property>
-        <property name="hoTen" type="string">
-            <column name="HoTen" length="65535" />
-        </property>
-        <property name="gioiTinh" type="string">
-            <column name="GioiTinh" length="20" />
-        </property>
-        <property name="cmnd" type="string">
-            <column name="CMND" length="20" />
-        </property>
         <property name="matKhauMacDinh" type="string">
-            <column name="MatKhauMacDinh" length="50" />
+            <column name="MatKhauMacDinh" length="50" not-null="true" />
         </property>
         <property name="matKhau" type="string">
             <column name="MatKhau" length="50" />

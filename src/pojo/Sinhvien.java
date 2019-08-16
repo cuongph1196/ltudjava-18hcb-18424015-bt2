@@ -1,5 +1,5 @@
 package pojo;
-// Generated Aug 8, 2019 11:08:33 PM by Hibernate Tools 4.3.1
+// Generated Aug 16, 2019 11:15:36 PM by Hibernate Tools 4.3.1
 
 
 
@@ -10,11 +10,12 @@ public class Sinhvien  implements java.io.Serializable {
 
 
      private String mssv;
+     private Integer stt;
      private String hoTen;
-     private Boolean gioiTinh;
+     private String gioiTinh;
      private String cmnd;
-     private String matkhau;
-     private String matkhaumacdinh;
+     private String matKhauMacDinh;
+     private String matKhau;
 
     public Sinhvien() {
     }
@@ -23,13 +24,14 @@ public class Sinhvien  implements java.io.Serializable {
     public Sinhvien(String mssv) {
         this.mssv = mssv;
     }
-    public Sinhvien(String mssv, String hoTen, Boolean gioiTinh, String cmnd, String matkhaumacdinh, String matkhau) {
+    public Sinhvien(String mssv, Integer stt, String hoTen, String gioiTinh, String cmnd, String matKhauMacDinh, String matKhau) {
        this.mssv = mssv;
+       this.stt = stt;
        this.hoTen = hoTen;
        this.gioiTinh = gioiTinh;
-       this.matkhaumacdinh = matkhaumacdinh;
-       this.matkhau = matkhau;
        this.cmnd = cmnd;
+       this.matKhauMacDinh = matKhauMacDinh;
+       this.matKhau = matKhau;
     }
    
     public String getMssv() {
@@ -39,6 +41,13 @@ public class Sinhvien  implements java.io.Serializable {
     public void setMssv(String mssv) {
         this.mssv = mssv;
     }
+    public Integer getStt() {
+        return this.stt;
+    }
+    
+    public void setStt(Integer stt) {
+        this.stt = stt;
+    }
     public String getHoTen() {
         return this.hoTen;
     }
@@ -46,11 +55,11 @@ public class Sinhvien  implements java.io.Serializable {
     public void setHoTen(String hoTen) {
         this.hoTen = hoTen;
     }
-    public Boolean getGioiTinh() {
+    public String getGioiTinh() {
         return this.gioiTinh;
     }
     
-    public void setGioiTinh(Boolean gioiTinh) {
+    public void setGioiTinh(String gioiTinh) {
         this.gioiTinh = gioiTinh;
     }
     public String getCmnd() {
@@ -60,21 +69,19 @@ public class Sinhvien  implements java.io.Serializable {
     public void setCmnd(String cmnd) {
         this.cmnd = cmnd;
     }
-    
     public String getMatKhauMacDinh() {
-        return this.matkhaumacdinh;
+        return this.matKhauMacDinh;
     }
     
     public void setMatKhauMacDinh(String matKhauMacDinh) {
-        this.matkhaumacdinh = matKhauMacDinh;
+        this.matKhauMacDinh = matKhauMacDinh;
     }
-    
     public String getMatKhau() {
-        return this.matkhau;
+        return this.matKhau;
     }
     
     public void setMatKhau(String matKhau) {
-        this.matkhau = matKhau;
+        this.matKhau = matKhau;
     }
 
 

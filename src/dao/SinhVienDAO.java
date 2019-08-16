@@ -13,6 +13,10 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojo.Sinhvien;
 import dao.SinhVienDAO;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  *
@@ -48,6 +52,30 @@ public class SinhVienDAO {
         }
         return sv;
     }
+    
+//    public static Sinhvien layThongTinSinhVien(String maSinhVien) {
+//        Sinhvien sv = null;
+//        Session session = Controller.getSessionFactory().openSession();
+//        try {
+////            sv = (Sinhvien) session.get(Sinhvien.class, maSinhVien);
+//            String hql = "from Sinhvien sv where sv.mssv=:maSinhVien";
+//            Query query = session.createQuery(hql);
+//            query.setString("maSinhVien", maSinhVien);
+//            sv=(Sinhvien)query;
+////            for(int i=0; i<ds.size(); i++){
+////                sv = ds.get(i);
+////                String mssv=sv.getMssv();
+////                String hoTen=sv.getHoTen();
+////                String matKhau=sv.getMatKhau();
+////            }
+//        } catch (HibernateException ex) {
+//            //Log the exception
+//            System.err.println(ex);
+//        } finally {
+//            session.close();
+//        }
+//        return sv;
+//    }
     
     public static Sinhvien kiemTraDangNhap(String maSinhVien, String matKhau) {
         Sinhvien sv = null;
