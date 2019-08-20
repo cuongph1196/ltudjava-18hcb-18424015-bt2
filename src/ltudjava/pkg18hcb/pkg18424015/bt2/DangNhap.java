@@ -6,12 +6,9 @@
 package ltudjava.pkg18hcb.pkg18424015.bt2;
 
 import dao.SinhVienDAO;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -98,7 +95,7 @@ public class DangNhap extends JFrame implements ActionListener{
                     Home_Layout swing = new Home_Layout("Main");
                     swing.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     swing.setVisible(true);
-                    swing.setSize(500, 300);
+                    swing.setSize(800, 700);
                     this.setVisible(false);
                 }
                 else{

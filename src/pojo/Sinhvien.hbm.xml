@@ -20,6 +20,9 @@
         <property name="cmnd" type="string">
             <column name="CMND" length="20" />
         </property>
+        <property name="lop" type="string">
+            <column name="Lop" length="20" />
+        </property>
         <property name="matKhauMacDinh" type="string">
             <column name="MatKhauMacDinh" length="50" />
         </property>

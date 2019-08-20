@@ -5,20 +5,11 @@
  */
 package ltudjava.pkg18hcb.pkg18424015.bt2;
 
-import dao.SinhVienDAO;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -26,14 +17,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
-import javax.swing.filechooser.FileSystemView;
-import pojo.Sinhvien;
 
 /**
  *
  * @author phanc
  */
-public class Home_Layout extends JFrame implements ActionListener{
+public class Home_Layout extends JFrame{
     JMenuBar jmbMain;
     JMenu jmClass, jmSchedule, jmLogout;
     JMenuItem jmiImport, jmiTKB;
@@ -53,22 +42,9 @@ public class Home_Layout extends JFrame implements ActionListener{
                 login.setSize(400, 200);
             }
         });
-        //Class
-        JPanel pnClass = new JPanel();
-        TitledBorder titleClass = new TitledBorder("Import danh sách lớp");
-        pnClass.setBorder(titleClass);
-        
-        lbFile = new JLabel();
-        lbFile.setText("Chọn file cần import: ");
-        lbFile.setBounds(10, 10, 200, 30);
-        
-        btnSelect = new JButton();
-        btnSelect.setText("Chọn file");
-        btnSelect.setBounds(210, 10, 100, 30);
-        
-        pnClass.add(lbFile);
-        pnClass.add(btnSelect);
-        
+//        //Class
+        Lop lp = new Lop();
+        JPanel pnClass = lp.Import();
         
         //Schedule
         JPanel pnSchedule = new JPanel();
@@ -102,49 +78,5 @@ public class Home_Layout extends JFrame implements ActionListener{
         
 //        Container con = getContentPane();
 //        con.add(BorderLayout.NORTH, jmbMain);
-
-
-        //Add function
-        btnSelect.addActionListener(this);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == btnSelect){
-            JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-            int returnValue = jfc.showOpenDialog(Home_Layout.this);
-            // int returnValue = jfc.showSaveDialog(null);
-
-            if (returnValue == JFileChooser.APPROVE_OPTION) {
-                File selectedFile = jfc.getSelectedFile();
-                System.out.println(selectedFile.getAbsolutePath());
-                String pathInput = selectedFile.getAbsolutePath();
-                try {
-                    ReadFile(pathInput,"Class");
-                } catch (IOException ex) {
-                    Logger.getLogger(Home_Layout.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }
-    public void ReadFile(String pathInput, String type) throws FileNotFoundException, IOException{
-        BufferedReader br = null;
-        try{
-        FileReader fr = new FileReader(pathInput);
-        //br = new BufferedReader(new InputStreamReader(new FileInputStream(pathInput), StandardCharsets.UTF_8));
-        br = new BufferedReader(fr);
-        String i;
-        br.readLine();
-        while ((i = br.readLine()) != "") {
-            System.out.print(i);
-            String[] item = i.split(",");
-            Sinhvien sv = new Sinhvien(item[1], null, item[2], item[3], item[4], null, null);
-            SinhVienDAO.themSinhVien(sv);
-        }
-        } catch (FileNotFoundException e) {
-        } catch (IOException e) {
-        } finally {
-            br.close();
-        }
     }
 }
