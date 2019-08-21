@@ -5,13 +5,9 @@
  */
 package ltudjava.pkg18hcb.pkg18424015.bt2;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import dao.SinhVienDAO;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import pojo.Sinhvien;
 
 /**
  *

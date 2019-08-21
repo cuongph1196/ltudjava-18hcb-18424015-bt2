@@ -6,6 +6,7 @@
 package ltudjava.pkg18hcb.pkg18424015.bt2;
 
 import dao.SinhVienDAO;
+import dao.ThoiKhoaBieuDAO;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,27 +30,30 @@ import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 import pojo.Sinhvien;
+import pojo.Thoikhoabieu;
+import pojo.ThoikhoabieuId;
 
 /**
  *
  * @author phanc
  */
-public class Lop extends JPanel implements ActionListener{
+public class ThoiKhoaBieu extends JPanel implements ActionListener{
+    
     JPanel pnClass;
     File selectedFile;
     JButton btnSelect, btnImport, btnCreate;
     JTable table;
     JScrollPane jspDSLop;
-    JTextField txtClassImp, txtClassCre, txtStudentIDCre, txtStudentNameCre, txtGenderCre, txtCMNDCre;
+    JTextField txtClassImp;
     public JPanel Import() {
     //Class
         pnClass = new JPanel();
-        TitledBorder titleClass = new TitledBorder("Danh sách lớp");
+        TitledBorder titleClass = new TitledBorder("Danh sách thời khoá biểu");
         pnClass.setBorder(titleClass);
         pnClass.setLayout(new GridLayout(2, 1));
         
         JPanel pnInput = new JPanel();
-        pnInput.setLayout(new GridLayout(1, 2));
+        pnInput.setLayout(new GridLayout(1, 1));
         
         
         JPanel pnImport = new JPanel();
@@ -66,36 +70,9 @@ public class Lop extends JPanel implements ActionListener{
         pnImport.add(btnImport);
         pnInput.add(pnImport);
         
-        JPanel pnCreate = new JPanel();
-        pnCreate.setLayout(new GridLayout(11, 2, 2, 2));
-        TitledBorder titleCreate = new TitledBorder("Thêm mới");
-        pnCreate.setBorder(titleCreate);
-        JLabel lblClassCre = new JLabel("Tên lớp");
-        txtClassCre = new JTextField(20);
-        JLabel lblStudentIDCre = new JLabel("Mã sinh viên");
-        txtStudentIDCre = new JTextField(20);
-        JLabel lblStudentNameCre = new JLabel("Họ tên");
-        txtStudentNameCre = new JTextField(20);
-        JLabel lblGenderCre = new JLabel("Giới tính");
-        txtGenderCre = new JTextField(20);
-        JLabel lblCMNDCre = new JLabel("CMND");
-        txtCMNDCre = new JTextField(20);
-        btnCreate = new JButton("Lưu");
-        pnCreate.add(lblClassCre);
-        pnCreate.add(txtClassCre);
-        pnCreate.add(lblStudentIDCre);
-        pnCreate.add(txtStudentIDCre);
-        pnCreate.add(lblStudentNameCre);
-        pnCreate.add(txtStudentNameCre);
-        pnCreate.add(lblGenderCre);
-        pnCreate.add(txtGenderCre);
-        pnCreate.add(lblCMNDCre);
-        pnCreate.add(txtCMNDCre);
-        pnCreate.add(btnCreate);
-        pnInput.add(pnCreate);
 
         JPanel pnListSV = new JPanel();
-        TitledBorder titleLitsSV = new TitledBorder("Danh sách lớp");
+        TitledBorder titleLitsSV = new TitledBorder("Danh sách thời khoá biểu");
         pnListSV.setBorder(titleLitsSV);
         pnListSV.setLayout(new GridLayout(1, 1));
         table = new JTable();
@@ -108,15 +85,13 @@ public class Lop extends JPanel implements ActionListener{
         //Add function
         btnSelect.addActionListener(this);
         btnImport.addActionListener(this);
-        btnCreate.addActionListener(this);
         return pnClass;
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == btnSelect){
             JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-            int returnValue = jfc.showOpenDialog(Lop.this);
+            int returnValue = jfc.showOpenDialog(ThoiKhoaBieu.this);
             // int returnValue = jfc.showSaveDialog(null);
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 selectedFile = jfc.getSelectedFile();
@@ -127,8 +102,8 @@ public class Lop extends JPanel implements ActionListener{
             if (!txtClassImp.getText().isEmpty() && selectedFile != null) {
                 String pathInput = selectedFile.getAbsolutePath();
                 try {
-                    readFile(pathInput,"Class");
-                    getDanhSachSV(txtClassImp.getText());
+                    readFile(pathInput,"Schedule");
+                    getDanhSachTKB(txtClassImp.getText());
                 } catch (IOException ex) {
                     Logger.getLogger(Home_Layout.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -136,20 +111,7 @@ public class Lop extends JPanel implements ActionListener{
                 JOptionPane.showMessageDialog(null, "Hãy nhập đầy đủ thông tin !!!");
             }
         }
-        if(e.getSource() == btnCreate){
-            if (!txtStudentIDCre.getText().isEmpty() && !txtStudentNameCre.getText().isEmpty() && !txtClassCre.getText().isEmpty()) {
-                Sinhvien sv = new Sinhvien(txtStudentIDCre.getText(), null, txtStudentNameCre.getText(), txtGenderCre.getText(), txtCMNDCre.getText(), txtClassCre.getText(), null, null);
-                boolean create = SinhVienDAO.themSinhVien(sv);
-                if(create){
-                    getDanhSachSV(txtClassCre.getText());
-                    JOptionPane.showMessageDialog(null, "Thêm thành công !!!");
-                }else{
-                    JOptionPane.showMessageDialog(null, "Thêm thất bại !!!");
-                }
-            }
-        }
     }
-    
     public void readFile(String pathInput, String type) throws FileNotFoundException, IOException{
         BufferedReader br = null;
         try{
@@ -159,17 +121,10 @@ public class Lop extends JPanel implements ActionListener{
             String i;
             br.readLine();
             while ((i = br.readLine()) != "") {
-                System.out.print(i);
                 String[] item = i.split(",");
-                Sinhvien sv = new Sinhvien(item[1], null, item[2], item[3], item[4], txtClassImp.getText(), null, null);
-                SinhVienDAO.themSinhVien(sv);
-//                boolean create = SinhVienDAO.themSinhVien(sv);
-//                if(create){
-//                    getDanhSachSV(txtClassImp.getText());
-//                    JOptionPane.showMessageDialog(null, "Thêm thành công !!!");
-//                }else{
-//                    JOptionPane.showMessageDialog(null, "Thêm thất bại !!!");
-//                }
+                ThoikhoabieuId tkbId = new ThoikhoabieuId(item[1], txtClassImp.getText());
+                Thoikhoabieu tkb = new Thoikhoabieu(tkbId, item[2], item[3]);
+                ThoiKhoaBieuDAO.themThoiKhoaBieu(tkb);
             }
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
@@ -178,26 +133,25 @@ public class Lop extends JPanel implements ActionListener{
         }
     }
     
-    public void getDanhSachSV(String className) {
+    public void getDanhSachTKB(String className) {
         //sp.setVisible(true);
         String[] columns = new String[]{
-            "Mã sinh viên",
-            "Họ tên",
-            "Giới tính",
-            "CMND",
+            "Mã môn học",
+            "Tên môn học",
+            "Phòng học",
             "Lớp"
         };
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
 
-        List<Sinhvien> listStudents = null;
-        listStudents = SinhVienDAO.layDanhSachSinhVienTheoLop(className);
-        listStudents.forEach(item -> {
-            model.addRow(new Object[]{item.getMssv(),
-                item.getHoTen(),
-                item.getGioiTinh(),
-                item.getCmnd(),
-                item.getLop()
+        List<Thoikhoabieu> listSchedules = null;
+        listSchedules = ThoiKhoaBieuDAO.layDanhSachThoiKhoaBieuTheoLop(className);
+        listSchedules.forEach(item -> {
+            System.out.print(item);
+            model.addRow(new Object[]{item.getId().getMaMonHoc(),
+                item.getTenMonHoc(),
+                item.getPhongHoc(),
+                item.getId().getLop()
             });
         });
         table.setModel(model);

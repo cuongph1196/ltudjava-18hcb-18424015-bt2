@@ -47,9 +47,8 @@ public class Home_Layout extends JFrame{
         JPanel pnClass = lp.Import();
         
         //Schedule
-        JPanel pnSchedule = new JPanel();
-        TitledBorder titleSchedule = new TitledBorder("Import thời khoá biểu");
-        pnSchedule.setBorder(titleSchedule);
+        ThoiKhoaBieu tkb = new ThoiKhoaBieu();
+        JPanel pnSchedule = tkb.Import();
         
         
         // add vào card chung
