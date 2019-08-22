@@ -24,8 +24,8 @@ import javax.swing.border.TitledBorder;
  */
 public class Home_Layout extends JFrame{
     JMenuBar jmbMain;
-    JMenu jmClass, jmSchedule, jmLogout;
-    JMenuItem jmiImport, jmiTKB;
+    JMenu jmClass, jmSchedule, jmLogout,jmClassSubject;
+    JMenuItem jmiImport, jmiTKB, jmiClSub;
     JPanel pnMain;
     JLabel lbFile;
     JButton btnSelect, btnImport, btnExit;
@@ -34,6 +34,7 @@ public class Home_Layout extends JFrame{
         jmbMain = new JMenuBar();
         jmClass = new JMenu("Lớp học");
         jmSchedule = new JMenu("Thời Khoá Biểu");
+        jmClassSubject = new JMenu("Lớp Môn Học");
         jmLogout = new JMenu(new AbstractAction("Đăng xuất") {
             public void actionPerformed(ActionEvent e) {
                 DangNhap login = new DangNhap("Login");
@@ -50,11 +51,15 @@ public class Home_Layout extends JFrame{
         ThoiKhoaBieu tkb = new ThoiKhoaBieu();
         JPanel pnSchedule = tkb.Import();
         
+        //Class Subject
+        Lop_MonHoc lmh = new Lop_MonHoc();
+        JPanel pnClassSubject = lmh.QLLMH();
         
         // add vào card chung
         pnMain = new JPanel(new CardLayout());
         pnMain.add(pnClass, "Class");
         pnMain.add(pnSchedule, "Schedule");
+        pnMain.add(pnClassSubject, "ClassSubject");
         
         CardLayout cl = (CardLayout) (pnMain.getLayout());
         jmiImport = new JMenuItem(new AbstractAction("Import danh sách lớp") {
@@ -68,10 +73,19 @@ public class Home_Layout extends JFrame{
             }
         });
         
+        jmiClSub = new JMenuItem(new AbstractAction("Quản lý lớp môn học") {
+            public void actionPerformed(ActionEvent e) {
+                cl.show(pnMain, "ClassSubject");
+            }
+        });
+        
         jmClass.add(jmiImport);
         jmSchedule.add(jmiTKB);
+        jmClassSubject.add(jmiClSub);
+        
         jmbMain.add(jmClass);
         jmbMain.add(jmSchedule);
+        jmbMain.add(jmClassSubject);
         this.setJMenuBar(jmbMain);
         this.add(pnMain);
         

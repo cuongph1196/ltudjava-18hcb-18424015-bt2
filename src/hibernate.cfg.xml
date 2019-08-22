@@ -47,6 +47,7 @@ Contributor(s):
     <property name="hibernate.connection.username">root</property>
     <mapping resource="pojo/Sinhvien.hbm.xml"/>
     <mapping resource="pojo/Thoikhoabieu.hbm.xml"/>
+    <mapping resource="pojo/SinhvienMonhoc.hbm.xml"/>
     <mapping resource="pojo/Diem.hbm.xml"/>
     <mapping resource="pojo/Taikhoan.hbm.xml"/>
   </session-factory>

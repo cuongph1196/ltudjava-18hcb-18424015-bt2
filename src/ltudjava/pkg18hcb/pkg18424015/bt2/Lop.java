@@ -128,7 +128,7 @@ public class Lop extends JPanel implements ActionListener{
                 String pathInput = selectedFile.getAbsolutePath();
                 try {
                     readFile(pathInput,"Class");
-                    getDanhSachSV(txtClassImp.getText());
+//                    getDanhSachSV(txtClassImp.getText());
                 } catch (IOException ex) {
                     Logger.getLogger(Home_Layout.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -158,19 +158,22 @@ public class Lop extends JPanel implements ActionListener{
             br = new BufferedReader(fr);
             String i;
             br.readLine();
+            boolean create = false;
             while ((i = br.readLine()) != "") {
                 System.out.print(i);
                 String[] item = i.split(",");
                 Sinhvien sv = new Sinhvien(item[1], null, item[2], item[3], item[4], txtClassImp.getText(), null, null);
-                SinhVienDAO.themSinhVien(sv);
-//                boolean create = SinhVienDAO.themSinhVien(sv);
-//                if(create){
-//                    getDanhSachSV(txtClassImp.getText());
-//                    JOptionPane.showMessageDialog(null, "Thêm thành công !!!");
-//                }else{
-//                    JOptionPane.showMessageDialog(null, "Thêm thất bại !!!");
-//                }
+//                SinhVienDAO.themSinhVien(sv);
+                create = SinhVienDAO.themSinhVien(sv);
+                getDanhSachSV(txtClassImp.getText());
             }
+            
+//            if(create == true){
+//                getDanhSachSV(txtClassImp.getText());
+//                JOptionPane.showMessageDialog(null, "Thêm thành công !!!");
+//            }else{
+//                JOptionPane.showMessageDialog(null, "Thêm thất bại !!!");
+//            }
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
         } finally {

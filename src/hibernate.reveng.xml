@@ -41,8 +41,9 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="dbqlsv"/>
-  <table-filter match-name="sinhvien"/>
-  <table-filter match-name="diem"/>
-  <table-filter match-name="thoikhoabieu"/>
   <table-filter match-name="taikhoan"/>
+  <table-filter match-name="sinhvien_monhoc"/>
+  <table-filter match-name="sinhvien"/>
+  <table-filter match-name="thoikhoabieu"/>
+  <table-filter match-name="diem"/>
 </hibernate-reverse-engineering>
