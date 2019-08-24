@@ -1,13 +1,20 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Aug 22, 2019 11:35:44 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Aug 24, 2019 11:05:34 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="pojo.Diem" table="diem" catalog="dbqlsv" optimistic-lock="version">
-        <id name="mssv" type="string">
-            <column name="MSSV" length="50" />
-            <generator class="assigned" />
-        </id>
+        <composite-id name="id" class="pojo.DiemId">
+            <key-property name="mssv" type="string">
+                <column name="MSSV" length="50" />
+            </key-property>
+            <key-property name="lop" type="string">
+                <column name="Lop" length="20" />
+            </key-property>
+            <key-property name="monHoc" type="string">
+                <column name="MonHoc" length="20" />
+            </key-property>
+        </composite-id>
         <property name="hoTen" type="string">
             <column name="HoTen" length="65535" />
         </property>

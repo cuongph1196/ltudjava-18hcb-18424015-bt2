@@ -11,21 +11,22 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import pojo.SinhvienMonhoc;
-import pojo.SinhvienMonhocId;
+import pojo.Diem;
+import pojo.DiemId;
+import pojo.Sinhvien;
+import pojo.Thoikhoabieu;
 
 /**
  *
  * @author phanc
  */
-public class LopMonHocDAO {
-    public static List<SinhvienMonhoc> layDanhSachSinhVienTheoMonHoc(String tenMonhoc) {
-        List<SinhvienMonhoc> ds = null;
+public class DiemDAO {
+    public static List<Diem> layDanhSachDiem() {
+        List<Diem> ds = null;
         Session session = Controller.getSessionFactory().openSession();
         try {
-            String hql = "select svmh from SinhvienMonhoc svmh "; //where svmh.monHoc=:monhoc
+            String hql = "select d from Diem d";
             Query query = session.createQuery(hql);
-//            query.setString("monhoc", tenMonhoc);
             ds = query.list();
         } catch (HibernateException ex) {
             //Log the exception
@@ -36,14 +37,31 @@ public class LopMonHocDAO {
         return ds;
     }
     
-    public static List<SinhvienMonhoc> layDanhSachSinhVienTheoMonHocLop(String tenMonhoc, String tenLop) {
-        List<SinhvienMonhoc> ds = null;
+    public static List<Diem> layDanhSachDiemTheoMSSV(String mssv) {
+        List<Diem> ds = null;
         Session session = Controller.getSessionFactory().openSession();
         try {
-            String hql = "select svmh from SinhvienMonhoc svmh where svmh.id.monHoc=:monHoc and svmh.lop=:lop"; //where svmh.monHoc=:monHoc and svmh.lop=:lop
+            String hql = "select d from Diem d where d.id.mssv=:mssv";
             Query query = session.createQuery(hql);
-            query.setString("monHoc", tenMonhoc);
+            query.setString("mssv", mssv);
+            ds = query.list();
+        } catch (HibernateException ex) {
+            //Log the exception
+            System.err.println(ex);
+        } finally {
+            session.close();
+        }
+        return ds;
+    }
+    
+    public static List<Diem> layDanhSachDiemTheoLopMonHoc(String tenLop, String tenMonHoc) {
+        List<Diem> ds = null;
+        Session session = Controller.getSessionFactory().openSession();
+        try {
+            String hql = "select d from Diem d where d.id.lop=:lop and d.id.monHoc=:monhoc";
+            Query query = session.createQuery(hql);
             query.setString("lop", tenLop);
+            query.setString("monhoc", tenMonHoc);
             ds = query.list();
         } catch (HibernateException ex) {
             //Log the exception
@@ -53,31 +71,30 @@ public class LopMonHocDAO {
         }
         return ds;
     }
-    
-    public static SinhvienMonhoc layThongTinSinhVien(String maMonHoc, String maMSSV) {
-        SinhvienMonhoc tkb = null;
+    public static Diem layThongTinDiem(String mssv, String maLop, String maMonHoc) {
+        Diem d = null;
         Session session = Controller.getSessionFactory().openSession();
         try {
-            SinhvienMonhocId svmhId = new SinhvienMonhocId(maMSSV, maMonHoc);
-            tkb = (SinhvienMonhoc) session.get(SinhvienMonhoc.class, svmhId);
+            DiemId dId = new DiemId(mssv, maLop, maMonHoc);
+            d = (Diem) session.get(Diem.class, dId);
         } catch (HibernateException ex) {
             //Log the exception
             System.err.println(ex);
         } finally {
             session.close();
         }
-        return tkb;
+        return d;
     }
     
-    public static boolean themSinhVienMonHoc(SinhvienMonhoc svmh) {
+    public static boolean themDiem(Diem d) {
         Session session = Controller.getSessionFactory().openSession();
-        if (LopMonHocDAO.layThongTinSinhVien(svmh.getId().getMssv(),svmh.getId().getMonHoc())!=null) {
+        if (DiemDAO.layThongTinDiem(d.getId().getMssv(),d.getId().getLop(),d.getId().getMonHoc())!=null) {
         return false;
         }
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.save(svmh);
+            session.save(d);
             transaction.commit();
         } catch (HibernateException ex) {
             //Log the exception
@@ -88,16 +105,37 @@ public class LopMonHocDAO {
         }
         return true;
     }
-    public static boolean xoaSinhVienMonHoc(String maMonHoc, String maMSSV) {
+    
+    public static boolean capNhatThongTinSinhVien(Diem d) {
         Session session = Controller.getSessionFactory().openSession();
-        SinhvienMonhoc svmh = LopMonHocDAO.layThongTinSinhVien(maMonHoc,maMSSV);
-        if(svmh==null){
+        if (DiemDAO.layThongTinDiem(d.getId().getMssv(),d.getId().getLop(),d.getId().getMonHoc())!=null) {
+        return false;
+        }
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.update(d);
+            transaction.commit();
+        } catch (HibernateException ex) {
+            //Log the exception
+            transaction.rollback();
+            System.err.println(ex);
+        } finally {
+            session.close();
+        }
+        return true;
+    }
+    
+    public static boolean xoaSinhVien(String mssv, String maLop, String maMonHoc) {
+        Session session = Controller.getSessionFactory().openSession();
+        Diem d = DiemDAO.layThongTinDiem(mssv, maLop, maMonHoc);
+        if(d==null){
             return false;
         }
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.delete(svmh);
+            session.delete(d);
             transaction.commit();
         } catch (HibernateException ex) {
             //Log the exception

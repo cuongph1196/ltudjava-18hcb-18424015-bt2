@@ -5,6 +5,7 @@
  */
 package ltudjava.pkg18hcb.pkg18424015.bt2;
 
+import dao.DiemDAO;
 import dao.SinhVienDAO;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -28,25 +29,28 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
+import pojo.Diem;
+import pojo.DiemId;
 import pojo.Sinhvien;
 
 /**
  *
  * @author phanc
  */
-public class Lop extends JPanel implements ActionListener{
-    JPanel pnClass;
+public class DiemSV extends JPanel implements ActionListener{
+    JPanel pnScore;
     File selectedFile;
     JButton btnSelect, btnImport, btnCreate;
     JTable table;
     JScrollPane jspDSLop;
-    JTextField txtClassImp, txtClassCre, txtStudentIDCre, txtStudentNameCre, txtGenderCre, txtCMNDCre;
+    JTextField txtClassImp,txtSubjectImp, txtClassCre, txtStudentIDCre, txtStudentNameCre, txtGenderCre, txtCMNDCre;
+    
     public JPanel Import() {
     //Class
-        pnClass = new JPanel();
+        pnScore = new JPanel();
         TitledBorder titleClass = new TitledBorder("Danh sách lớp");
-        pnClass.setBorder(titleClass);
-        pnClass.setLayout(new GridLayout(2, 1));
+        pnScore.setBorder(titleClass);
+        pnScore.setLayout(new GridLayout(2, 1));
         
         JPanel pnInput = new JPanel();
         pnInput.setLayout(new GridLayout(1, 2));
@@ -59,10 +63,14 @@ public class Lop extends JPanel implements ActionListener{
         
         JLabel lblClassImp = new JLabel("Tên lớp");
         txtClassImp = new JTextField(20);
+        JLabel lblSubjectImp = new JLabel("Tên môn học");
+        txtSubjectImp = new JTextField(20);
         btnSelect = new JButton("Chọn file");
         btnImport = new JButton("Import");
         pnImport.add(lblClassImp);
         pnImport.add(txtClassImp);
+        pnImport.add(lblSubjectImp);
+        pnImport.add(txtSubjectImp);
         pnImport.add(btnSelect);
         pnImport.add(btnImport);
         pnInput.add(pnImport);
@@ -95,29 +103,30 @@ public class Lop extends JPanel implements ActionListener{
         pnCreate.add(btnCreate);
         pnInput.add(pnCreate);
 
-        JPanel pnListSV = new JPanel();
-        TitledBorder titleLitsSV = new TitledBorder("Danh sách lớp");
-        pnListSV.setBorder(titleLitsSV);
-        pnListSV.setLayout(new GridLayout(1, 1));
+        JPanel pnListScore = new JPanel();
+        TitledBorder titleLitsScore = new TitledBorder("Danh sách điểm");
+        pnListScore.setBorder(titleLitsScore);
+        pnListScore.setLayout(new GridLayout(1, 1));
         table = new JTable();
         jspDSLop = new JScrollPane(table);
-        pnListSV.add(jspDSLop);
+        pnListScore.add(jspDSLop);
         
-        pnClass.add(pnInput);
-        pnClass.add(pnListSV);
+        pnScore.add(pnInput);
+        pnScore.add(pnListScore);
         
         //Add function
         btnSelect.addActionListener(this);
         btnImport.addActionListener(this);
         btnCreate.addActionListener(this);
-        return pnClass;
+        return pnScore;
     }
-
+    
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == btnSelect){
             JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-            int returnValue = jfc.showOpenDialog(Lop.this);
+            int returnValue = jfc.showOpenDialog(DiemSV.this);
             // int returnValue = jfc.showSaveDialog(null);
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 selectedFile = jfc.getSelectedFile();
@@ -142,7 +151,7 @@ public class Lop extends JPanel implements ActionListener{
                 Sinhvien sv = new Sinhvien(txtStudentIDCre.getText(), null, txtStudentNameCre.getText(), txtGenderCre.getText(), txtCMNDCre.getText(), txtClassCre.getText(), null, null);
                 boolean create = SinhVienDAO.themSinhVien(sv);
                 if(create){
-                    getDanhSachSV(txtClassCre.getText());
+                    getDanhSachDiem(txtClassCre.getText(),txtSubjectImp.getText());
                     JOptionPane.showMessageDialog(null, "Thêm thành công !!!");
                 }else{
                     JOptionPane.showMessageDialog(null, "Thêm thất bại !!!");
@@ -163,18 +172,11 @@ public class Lop extends JPanel implements ActionListener{
             while ((i = br.readLine()) != "") {
                 System.out.print(i);
                 String[] item = i.split(",");
-                Sinhvien sv = new Sinhvien(item[1], null, item[2], item[3], item[4], txtClassImp.getText(), null, null);
-//                SinhVienDAO.themSinhVien(sv);
-                create = SinhVienDAO.themSinhVien(sv);
-                getDanhSachSV(txtClassImp.getText());
+                DiemId dId = new DiemId(item[1], txtClassImp.getText(), txtSubjectImp.getText());
+                Diem diem = new Diem(dId, item[2], Float.parseFloat(item[3]), Float.parseFloat(item[4]), Float.parseFloat(item[5]), Float.parseFloat(item[6]));
+                create = DiemDAO.themDiem(diem);
+                getDanhSachDiem(txtClassImp.getText(), txtSubjectImp.getText());
             }
-            
-//            if(create == true){
-//                getDanhSachSV(txtClassImp.getText());
-//                JOptionPane.showMessageDialog(null, "Thêm thành công !!!");
-//            }else{
-//                JOptionPane.showMessageDialog(null, "Thêm thất bại !!!");
-//            }
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
         } finally {
@@ -182,29 +184,36 @@ public class Lop extends JPanel implements ActionListener{
         }
     }
     
-    public void getDanhSachSV(String className) {
+    public void getDanhSachDiem(String className, String subjectName) {
         //sp.setVisible(true);
         String[] columns = new String[]{
             "Mã sinh viên",
             "Họ tên",
-            "Giới tính",
-            "CMND",
-            "Lớp"
+            "Điểm GK",
+            "Điểm CK",
+            "Điểm khác",
+            "Điểm tổng",
+            "Lớp",
+            "Môn học"
         };
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
 
-        List<Sinhvien> listStudents = null;
-        listStudents = SinhVienDAO.layDanhSachSinhVienTheoLop(className);
-        listStudents.forEach(item -> {
-            model.addRow(new Object[]{item.getMssv(),
+        List<Diem> listScores = null;
+        listScores = DiemDAO.layDanhSachDiemTheoLopMonHoc(className,subjectName);
+        listScores.forEach(item -> {
+            model.addRow(new Object[]{item.getId().getMssv(),
                 item.getHoTen(),
-                item.getGioiTinh(),
-                item.getCmnd(),
-                item.getLop()
+                item.getDiemGk(),
+                item.getDiemGk(),
+                item.getDiemKhac(),
+                item.getDiemTong(),
+                item.getId().getLop(),
+                item.getId().getMonHoc()
             });
         });
         table.setModel(model);
 
     }
+    
 }

@@ -87,7 +87,7 @@ public class Lop_MonHoc extends JPanel implements ActionListener{
 //        txtClassDel = new JTextField(20);
         JLabel lblSubjectDel = new JLabel("Mã môn học");
         txtSubjectDel = new JTextField(20);
-        JLabel lblMSSVDel = new JLabel("Họ tên");
+        JLabel lblMSSVDel = new JLabel("Mã sinh viên");
         txtMSSVDel = new JTextField(20);
         btnDelete = new JButton("Xoá");
 //        pnDelete.add(lblClassDel);

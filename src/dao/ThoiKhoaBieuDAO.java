@@ -23,7 +23,7 @@ public class ThoiKhoaBieuDAO {
         List<Thoikhoabieu> ds = null;
         Session session = Controller.getSessionFactory().openSession();
         try {
-            String hql = "select tkb from Thoikhoabieu tkb where tkb.lop=:lop";
+            String hql = "select tkb from Thoikhoabieu tkb where tkb.id.lop=:lop";
             Query query = session.createQuery(hql);
             query.setString("lop", tenLop);
             ds = query.list();

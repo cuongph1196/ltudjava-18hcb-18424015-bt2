@@ -102,7 +102,7 @@ public class ThoiKhoaBieu extends JPanel implements ActionListener{
             if (!txtClassImp.getText().isEmpty() && selectedFile != null) {
                 String pathInput = selectedFile.getAbsolutePath();
                 try {
-                    readFile(pathInput,"Schedule");
+                    readFile(pathInput);
 //                    getDanhSachTKB(txtClassImp.getText());
                 } catch (IOException ex) {
                     Logger.getLogger(Home_Layout.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,7 +112,7 @@ public class ThoiKhoaBieu extends JPanel implements ActionListener{
             }
         }
     }
-    public void readFile(String pathInput, String type) throws FileNotFoundException, IOException{
+    public void readFile(String pathInput) throws FileNotFoundException, IOException{
         BufferedReader br = null;
         try{
             FileReader fr = new FileReader(pathInput);

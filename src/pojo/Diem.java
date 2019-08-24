@@ -1,5 +1,5 @@
 package pojo;
-// Generated Aug 22, 2019 11:35:44 PM by Hibernate Tools 4.3.1
+// Generated Aug 24, 2019 11:05:33 PM by Hibernate Tools 4.3.1
 
 
 
@@ -9,7 +9,7 @@ package pojo;
 public class Diem  implements java.io.Serializable {
 
 
-     private String mssv;
+     private DiemId id;
      private String hoTen;
      private Float diemGk;
      private Float diemCk;
@@ -20,11 +20,11 @@ public class Diem  implements java.io.Serializable {
     }
 
 	
-    public Diem(String mssv) {
-        this.mssv = mssv;
+    public Diem(DiemId id) {
+        this.id = id;
     }
-    public Diem(String mssv, String hoTen, Float diemGk, Float diemCk, Float diemKhac, Float diemTong) {
-       this.mssv = mssv;
+    public Diem(DiemId id, String hoTen, Float diemGk, Float diemCk, Float diemKhac, Float diemTong) {
+       this.id = id;
        this.hoTen = hoTen;
        this.diemGk = diemGk;
        this.diemCk = diemCk;
@@ -32,12 +32,12 @@ public class Diem  implements java.io.Serializable {
        this.diemTong = diemTong;
     }
    
-    public String getMssv() {
-        return this.mssv;
+    public DiemId getId() {
+        return this.id;
     }
     
-    public void setMssv(String mssv) {
-        this.mssv = mssv;
+    public void setId(DiemId id) {
+        this.id = id;
     }
     public String getHoTen() {
         return this.hoTen;

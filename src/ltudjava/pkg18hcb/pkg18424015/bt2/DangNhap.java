@@ -49,8 +49,10 @@ public class DangNhap extends JFrame implements ActionListener{
         
         //text field
         txtUsername = new JTextField();
+        txtUsername.setText("SV0001");
         txtUsername.setBounds(115, 20, 250, 30);
         txtPassword = new JPasswordField();
+        txtPassword.setText("123456");
         txtPassword.setBounds(115, 60, 250, 30);
         
         //button
