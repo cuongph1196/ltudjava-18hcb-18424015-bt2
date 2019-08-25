@@ -144,7 +144,7 @@ public class Lop extends JPanel implements ActionListener{
                 Sinhvien sv = new Sinhvien(txtStudentIDCre.getText(), null, txtStudentNameCre.getText(), txtGenderCre.getText(), txtCMNDCre.getText(), txtClassCre.getText(), null, null);
                 boolean create = SinhVienDAO.themSinhVien(sv);
                 
-                Taikhoan tk = new Taikhoan(txtStudentIDCre.getText(), "123456", txtStudentIDCre.getText());
+                Taikhoan tk = new Taikhoan(txtStudentIDCre.getText(), "123456", txtStudentIDCre.getText(),"SV");
                 TaiKhoanDAO.themTaiKhoan(tk);
                 if(create){
                     getDanhSachSV(txtClassCre.getText());
@@ -171,7 +171,7 @@ public class Lop extends JPanel implements ActionListener{
                 Sinhvien sv = new Sinhvien(item[1], null, item[2], item[3], item[4], txtClassImp.getText(), null, null);
 //                SinhVienDAO.themSinhVien(sv);
                 create = SinhVienDAO.themSinhVien(sv);
-                Taikhoan tk = new Taikhoan(item[1], "123456", item[1]);
+                Taikhoan tk = new Taikhoan(item[1], "123456", item[1], "SV");
                 TaiKhoanDAO.themTaiKhoan(tk);
                 getDanhSachSV(txtClassImp.getText());
             }

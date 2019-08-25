@@ -14,10 +14,22 @@
         <group>
             <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/ltudjava/pkg18hcb/pkg18424015/bt2/DiemSV.java</file>
             <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/ltudjava/pkg18hcb/pkg18424015/bt2/Ltudjava18hcb18424015Bt2.java</file>
-            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/ltudjava/pkg18hcb/pkg18424015/bt2/DSLopMonHoc.java</file>
-            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/ltudjava/pkg18hcb/pkg18424015/bt2/Home_Layout.java</file>
+            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/ltudjava/pkg18hcb/pkg18424015/bt2/XemDiemCaNhan.java</file>
+            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/ltudjava/pkg18hcb/pkg18424015/bt2/Lop.java</file>
+            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/dao/LopMonHocDAO.java</file>
+            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/pojo/Diem.java</file>
+            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/pojo/Taikhoan.hbm.xml</file>
+            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/ltudjava/pkg18hcb/pkg18424015/bt2/Lop_MonHoc.java</file>
             <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/ltudjava/pkg18hcb/pkg18424015/bt2/DSDiem.java</file>
             <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/dao/DiemDAO.java</file>
+            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/pojo/Taikhoan.java</file>
+            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/dao/SinhVienDAO.java</file>
+            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/ltudjava/pkg18hcb/pkg18424015/bt2/DoiMatKhau.java</file>
+            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/ltudjava/pkg18hcb/pkg18424015/bt2/DSLop.java</file>
+            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/dao/TaiKhoanDAO.java</file>
+            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/ltudjava/pkg18hcb/pkg18424015/bt2/Home_Layout.java</file>
+            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/ltudjava/pkg18hcb/pkg18424015/bt2/ThoiKhoaBieu.java</file>
+            <file>file:/D:/HCDH/HK2/Java/SourceCode/ltudjava-18hcb-18424015-bt2/src/ltudjava/pkg18hcb/pkg18424015/bt2/DangNhap.java</file>
         </group>
     </open-files>
 </project-private>

@@ -22,10 +22,11 @@ public class Taikhoan  implements java.io.Serializable {
         this.mssv = mssv;
         this.matKhauMacDinh = matKhauMacDinh;
     }
-    public Taikhoan(String mssv, String matKhauMacDinh, String matKhau) {
+    public Taikhoan(String mssv, String matKhauMacDinh, String matKhau, String quyen) {
        this.mssv = mssv;
        this.matKhauMacDinh = matKhauMacDinh;
        this.matKhau = matKhau;
+       this.quyen = quyen;
     }
    
     public String getMssv() {

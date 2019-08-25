@@ -49,7 +49,7 @@ public class DiemSV extends JPanel implements ActionListener{
     public JPanel Import() {
     //Class
         pnScore = new JPanel();
-        TitledBorder titleClass = new TitledBorder("Danh sách lớp");
+        TitledBorder titleClass = new TitledBorder("Danh sách điểm");
         pnScore.setBorder(titleClass);
         pnScore.setLayout(new GridLayout(2, 1));
         
