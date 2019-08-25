@@ -12,6 +12,7 @@ public class Taikhoan  implements java.io.Serializable {
      private String mssv;
      private String matKhauMacDinh;
      private String matKhau;
+     private String quyen;
 
     public Taikhoan() {
     }
@@ -48,7 +49,13 @@ public class Taikhoan  implements java.io.Serializable {
     public void setMatKhau(String matKhau) {
         this.matKhau = matKhau;
     }
-
+    public String getQuyen() {
+        return this.quyen;
+    }
+    
+    public void setQuyen(String quyen) {
+        this.quyen = quyen;
+    }
 
 
 

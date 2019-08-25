@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,15 +25,14 @@ import pojo.Diem;
  *
  * @author phanc
  */
-public class DSDiem extends JPanel implements ActionListener{
+public class XemDiemCaNhan extends JPanel implements ActionListener{
     JPanel pnScore;
     JButton btnSelect;
     JTable table;
     JScrollPane jspDSDiem;
-    JTextField txtClass, txtSubject;
-    int countPass = 0, countFailed = 0;
-    JLabel lblPercentFailed, lblPercentPass;
-    public JPanel ListDiem() {
+    JTextField txtMSSV, txtSubject;
+    
+    public JPanel DiemCaNhan(String userName) {
     //Class
         pnScore = new JPanel();
         TitledBorder titleScore = new TitledBorder("Danh sách điểm");
@@ -47,24 +47,27 @@ public class DSDiem extends JPanel implements ActionListener{
         pnSelect.setBorder(titleSelect);
         pnSelect.setLayout(null);
         
-        JLabel lblClass = new JLabel();
-        lblClass.setText("Tên lớp: ");
-        lblClass.setBounds(20, 20, 100, 30);
-        txtClass = new JTextField();
-        txtClass.setBounds(120, 20, 200, 30);
-        
-        JLabel lblSubject = new JLabel();
-        lblSubject.setText("Tên môn học: ");
-        lblSubject.setBounds(320, 20, 100, 30);
+//        JLabel lblMSSV = new JLabel();
+//        lblMSSV.setText("MSSV: ");
+//        lblMSSV.setBounds(20, 20, 100, 30);
+        txtMSSV = new JTextField();
+        txtMSSV.setBounds(20, 20, 200, 30);
+        txtMSSV.setText(userName);
+        txtMSSV.disable();
+//        txtMSSV.setVisible(false);
+
+        JLabel lblSub = new JLabel();
+        lblSub.setText("Môn học: ");
+        lblSub.setBounds(250, 20, 100, 30);
         txtSubject = new JTextField();
-        txtSubject.setBounds(420, 20, 200, 30);
+        txtSubject.setBounds(370, 20, 200, 30);
         
         btnSelect = new JButton("Tìm kiếm");
         btnSelect.setBounds(650, 20, 100, 30);
         
-        pnSelect.add(lblClass);
-        pnSelect.add(txtClass);
-        pnSelect.add(lblSubject);
+//        pnSelect.add(lblMSSV);
+        pnSelect.add(txtMSSV);
+        pnSelect.add(lblSub);
         pnSelect.add(txtSubject);
         pnSelect.add(btnSelect);
         pnInput.add(pnSelect);
@@ -83,19 +86,13 @@ public class DSDiem extends JPanel implements ActionListener{
         pnScore.add(pnInput);
         pnScore.add(pnListSV);
         
-        lblPercentPass = new JLabel();
-        lblPercentPass.setBounds(300, 600, 200, 30);
-        lblPercentFailed = new JLabel();
-        lblPercentFailed.setBounds(500, 600, 200, 30);
-        pnScore.add(lblPercentPass);
-        pnScore.add(lblPercentFailed);
-        
         //Add function
         btnSelect.addActionListener(this);
         return pnScore;
     }
     
-    public void getDanhSachDiem(String className, String subjectName) {
+    public void getDiemCaNhan(String mssv, String sub) {
+        //sp.setVisible(true);
         String[] columns = new String[]{
             "Mã sinh viên",
             "Họ tên",
@@ -104,26 +101,18 @@ public class DSDiem extends JPanel implements ActionListener{
             "Điểm khác",
             "Điểm tổng",
             "Lớp",
-            "Môn học",
-            "Kết quả"
+            "Môn học"
         };
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
 
         List<Diem> listScores = null;
-        listScores = DiemDAO.layDanhSachDiemTheoLopMonHoc(className,subjectName);
-        countPass = 0; 
-        countFailed = 0;
+        if(!sub.isEmpty()){
+            listScores = DiemDAO.layDanhSachDiemTheoMSSVMonHoc(mssv,sub);
+        }else{
+            listScores = DiemDAO.layDanhSachDiemTheoMSSV(mssv);
+        }
         listScores.forEach(item -> {
-            String kq = "";
-            if (item.getDiemTong()>= 5) {
-                kq = "Đậu";
-                countPass = countPass + 1;
-            } else {
-                kq = "Rớt";
-                countFailed = countFailed + 1;
-            }
-            
             model.addRow(new Object[]{item.getId().getMssv(),
                 item.getHoTen(),
                 item.getDiemGk(),
@@ -131,20 +120,17 @@ public class DSDiem extends JPanel implements ActionListener{
                 item.getDiemKhac(),
                 item.getDiemTong(),
                 item.getId().getLop(),
-                item.getId().getMonHoc(),
-                kq
+                item.getId().getMonHoc()
             });
         });
         table.setModel(model);
-        lblPercentFailed.setText("Số lượng rớt: " + countFailed + "   Tỉ lệ: " + ((double)Math.round((((float) countFailed / listScores.size()) * 100)*10)/10) + "%");
-        lblPercentPass.setText("Số lượng đậu: " + countPass + "   Tỉ lệ: " + ((double)Math.round((((float) countPass / listScores.size()) * 100)*10)/10) + "%");
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
+        //getDiemCaNhan(txtMSSV.getText());
         if(e.getSource() == btnSelect){
-            getDanhSachDiem(txtClass.getText(), txtSubject.getText());
+            getDiemCaNhan(txtMSSV.getText(), txtSubject.getText());
         }
     }
-    
 }

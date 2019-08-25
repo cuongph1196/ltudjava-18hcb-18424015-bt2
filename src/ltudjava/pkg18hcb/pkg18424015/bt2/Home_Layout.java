@@ -6,6 +6,7 @@
 package ltudjava.pkg18hcb.pkg18424015.bt2;
 
 import java.awt.CardLayout;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -22,26 +23,29 @@ import javax.swing.JPanel;
  */
 public class Home_Layout extends JFrame{
     JMenuBar jmbMain;
-    JMenu jmClass, jmSchedule, jmLogout,jmClassSubject, jmScore;
-    JMenuItem jmiImport, jmiTKB, jmiClSub,jmiClassList, jmiClSubList, jmiTKBList, jimScoreImp, jimScoreList;
+    JMenu jmClass, jmSchedule, jmSetting,jmClassSubject, jmScore;
+    JMenuItem jmiImport, jmiTKB, jmiClSub,jmiClassList, jmiClSubList, jmiTKBList, jimScoreImp, jimScoreList, jimMyScore,jimLogout, jimChangePass;
     JPanel pnMain;
     JLabel lbFile;
     JButton btnSelect, btnImport, btnExit;
-    public Home_Layout(String tieuDe){
+    public Home_Layout(String tieuDe, String userName, String role){
         super(tieuDe);
+        System.out.println(role);
         jmbMain = new JMenuBar();
         jmClass = new JMenu("Lớp học");
         jmSchedule = new JMenu("Thời Khoá Biểu");
         jmClassSubject = new JMenu("Lớp Môn Học");
         jmScore = new JMenu("Điểm");
-        jmLogout = new JMenu(new AbstractAction("Đăng xuất") {
-            public void actionPerformed(ActionEvent e) {
-                DangNhap login = new DangNhap("Login");
-                login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                login.setVisible(true);
-                login.setSize(400, 200);
-            }
-        });
+        jmSetting = new JMenu("Tuỳ chọn");
+//        jmLogout = new JMenu(new AbstractAction("Đăng xuất") {
+//            public void actionPerformed(ActionEvent e) {
+//                System.out.println(".actionPerformed()");
+//                DangNhap login = new DangNhap("Login");
+//                login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//                login.setVisible(true);
+//                login.setSize(400, 200);
+//            }
+//        });
 //        //Class
         Lop lp = new Lop();
         JPanel pnClass = lp.Import();
@@ -70,6 +74,13 @@ public class Home_Layout extends JFrame{
         DSDiem dsd = new DSDiem();
         JPanel pnScoreList = dsd.ListDiem();
         
+        XemDiemCaNhan md = new XemDiemCaNhan();
+        JPanel pnMyScore = md.DiemCaNhan(userName);
+        
+        //Change Pass
+        DoiMatKhau dmk = new DoiMatKhau();
+        JPanel pnChangePass = dmk.DoiMatKhau(userName);
+        
         // add vào card chung
         pnMain = new JPanel(new CardLayout());
         pnMain.add(pnClass, "Class");
@@ -80,6 +91,8 @@ public class Home_Layout extends JFrame{
         pnMain.add(pnScheduleList, "ScheduleList");
         pnMain.add(pnScore, "Score");
         pnMain.add(pnScoreList, "ScoreList");
+        pnMain.add(pnMyScore, "MyScore");
+        pnMain.add(pnChangePass, "ChangePass");
         
         CardLayout cl = (CardLayout) (pnMain.getLayout());
         jmiImport = new JMenuItem(new AbstractAction("Import danh sách lớp") {
@@ -129,19 +142,53 @@ public class Home_Layout extends JFrame{
             }
         });
         
+        jimMyScore = new JMenuItem(new AbstractAction("Điểm cá nhân") {
+            public void actionPerformed(ActionEvent e) {
+                cl.show(pnMain, "MyScore");
+            }
+        });
+        
+        jimLogout = new JMenuItem(new AbstractAction("Đăng xuất") {
+            public void actionPerformed(ActionEvent e) {
+//                Container con = getContentPane();
+//                con.setVisible(false);
+                dispose();
+                DangNhap login = new DangNhap("Login");
+                login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                login.setVisible(true);
+                login.setSize(400, 200);
+            }
+        });
+        
+        jimChangePass = new JMenuItem(new AbstractAction("Đổi mật khẩu") {
+            public void actionPerformed(ActionEvent e) {
+                cl.show(pnMain, "ChangePass");
+            }
+        });
+        
+        
+        if(role.equals("GV")){
         jmClass.add(jmiImport);
         jmClass.add(jmiClassList);
         jmSchedule.add(jmiTKB);
-        jmSchedule.add(jmiTKBList);
         jmClassSubject.add(jmiClSub);
         jmClassSubject.add(jmiClSubList);
         jmScore.add(jimScoreImp);
         jmScore.add(jimScoreList);
+        }
+        jmSchedule.add(jmiTKBList);
+        jmScore.add(jimMyScore);
+        jmSetting.add(jimLogout);
+        jmSetting.add(jimChangePass);
         
-        jmbMain.add(jmClass);
+        if(role.equals("GV")){
+            jmbMain.add(jmClass);
+            jmbMain.add(jmClassSubject);
+        }
         jmbMain.add(jmSchedule);
-        jmbMain.add(jmClassSubject);
         jmbMain.add(jmScore);
+        jmbMain.add(jmSetting);
+        
         this.setJMenuBar(jmbMain);
         this.add(pnMain);
         

@@ -71,6 +71,24 @@ public class DiemDAO {
         }
         return ds;
     }
+    
+    public static List<Diem> layDanhSachDiemTheoMSSVMonHoc(String mssv, String tenMonHoc) {
+        List<Diem> ds = null;
+        Session session = Controller.getSessionFactory().openSession();
+        try {
+            String hql = "select d from Diem d where d.id.mssv=:mssv and d.id.monHoc=:monhoc";
+            Query query = session.createQuery(hql);
+            query.setString("mssv", mssv);
+            query.setString("monhoc", tenMonHoc);
+            ds = query.list();
+        } catch (HibernateException ex) {
+            //Log the exception
+            System.err.println(ex);
+        } finally {
+            session.close();
+        }
+        return ds;
+    }
     public static Diem layThongTinDiem(String mssv, String maLop, String maMonHoc) {
         Diem d = null;
         Session session = Controller.getSessionFactory().openSession();
@@ -106,9 +124,9 @@ public class DiemDAO {
         return true;
     }
     
-    public static boolean capNhatThongTinSinhVien(Diem d) {
+    public static boolean capNhatDiemSinhVien(Diem d) {
         Session session = Controller.getSessionFactory().openSession();
-        if (DiemDAO.layThongTinDiem(d.getId().getMssv(),d.getId().getLop(),d.getId().getMonHoc())!=null) {
+        if (DiemDAO.layThongTinDiem(d.getId().getMssv(),d.getId().getLop(),d.getId().getMonHoc())==null) {
         return false;
         }
         Transaction transaction = null;
@@ -126,7 +144,7 @@ public class DiemDAO {
         return true;
     }
     
-    public static boolean xoaSinhVien(String mssv, String maLop, String maMonHoc) {
+    public static boolean xoaDiemSinhVien(String mssv, String maLop, String maMonHoc) {
         Session session = Controller.getSessionFactory().openSession();
         Diem d = DiemDAO.layThongTinDiem(mssv, maLop, maMonHoc);
         if(d==null){

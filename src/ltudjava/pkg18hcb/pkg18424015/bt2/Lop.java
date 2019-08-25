@@ -6,6 +6,7 @@
 package ltudjava.pkg18hcb.pkg18424015.bt2;
 
 import dao.SinhVienDAO;
+import dao.TaiKhoanDAO;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +30,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 import pojo.Sinhvien;
+import pojo.Taikhoan;
 
 /**
  *
@@ -141,6 +143,9 @@ public class Lop extends JPanel implements ActionListener{
             if (!txtStudentIDCre.getText().isEmpty() && !txtStudentNameCre.getText().isEmpty() && !txtClassCre.getText().isEmpty()) {
                 Sinhvien sv = new Sinhvien(txtStudentIDCre.getText(), null, txtStudentNameCre.getText(), txtGenderCre.getText(), txtCMNDCre.getText(), txtClassCre.getText(), null, null);
                 boolean create = SinhVienDAO.themSinhVien(sv);
+                
+                Taikhoan tk = new Taikhoan(txtStudentIDCre.getText(), "123456", txtStudentIDCre.getText());
+                TaiKhoanDAO.themTaiKhoan(tk);
                 if(create){
                     getDanhSachSV(txtClassCre.getText());
                     JOptionPane.showMessageDialog(null, "Thêm thành công !!!");
@@ -166,6 +171,8 @@ public class Lop extends JPanel implements ActionListener{
                 Sinhvien sv = new Sinhvien(item[1], null, item[2], item[3], item[4], txtClassImp.getText(), null, null);
 //                SinhVienDAO.themSinhVien(sv);
                 create = SinhVienDAO.themSinhVien(sv);
+                Taikhoan tk = new Taikhoan(item[1], "123456", item[1]);
+                TaiKhoanDAO.themTaiKhoan(tk);
                 getDanhSachSV(txtClassImp.getText());
             }
             

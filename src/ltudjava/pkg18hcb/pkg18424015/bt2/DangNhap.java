@@ -6,9 +6,11 @@
 package ltudjava.pkg18hcb.pkg18424015.bt2;
 
 import dao.SinhVienDAO;
+import dao.TaiKhoanDAO;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,6 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import pojo.Sinhvien;
+import pojo.Taikhoan;
 
 /**
  *
@@ -49,10 +52,10 @@ public class DangNhap extends JFrame implements ActionListener{
         
         //text field
         txtUsername = new JTextField();
-        txtUsername.setText("SV0001");
+//        txtUsername.setText("SV0001");
         txtUsername.setBounds(115, 20, 250, 30);
         txtPassword = new JPasswordField();
-        txtPassword.setText("123456");
+//        txtPassword.setText("123456");
         txtPassword.setBounds(115, 60, 250, 30);
         
         //button
@@ -88,17 +91,17 @@ public class DangNhap extends JFrame implements ActionListener{
             String tk = txtUsername.getText().toString();
             char[] pass = txtPassword.getPassword();
             String mk = new String(pass);
-            Sinhvien sv = SinhVienDAO.layThongTinSinhVien(tk);
+            Taikhoan sv = TaiKhoanDAO.layThongTinTK(tk);
             if(sv!= null){
-                if( mk.equals(sv.getMatKhau())){
+                if( mk.equals(sv.getMatKhau().toString())){
                     System.out.println("Đăng nhập thành công");
 //                    JOptionPane.showMessageDialog(null,"Đăng nhập thành công !!!");
                     //main
-                    Home_Layout swing = new Home_Layout("Main");
+                    dispose();
+                    Home_Layout swing = new Home_Layout("Main",sv.getMssv().toString(),sv.getQuyen().toString());
                     swing.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     swing.setVisible(true);
                     swing.setSize(800, 700);
-                    this.setVisible(false);
                 }
                 else{
                     JOptionPane.showMessageDialog(null,"Đăng nhập thất bại !!!");

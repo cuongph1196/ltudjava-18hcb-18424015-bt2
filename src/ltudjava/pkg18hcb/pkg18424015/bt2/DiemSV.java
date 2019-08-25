@@ -7,6 +7,7 @@ package ltudjava.pkg18hcb.pkg18424015.bt2;
 
 import dao.DiemDAO;
 import dao.SinhVienDAO;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,10 +41,10 @@ import pojo.Sinhvien;
 public class DiemSV extends JPanel implements ActionListener{
     JPanel pnScore;
     File selectedFile;
-    JButton btnSelect, btnImport, btnCreate;
+    JButton btnSelect, btnImport, btnCreate, btnSearch;
     JTable table;
     JScrollPane jspDSLop;
-    JTextField txtClassImp,txtSubjectImp, txtClassCre, txtStudentIDCre, txtStudentNameCre, txtGenderCre, txtCMNDCre;
+    JTextField txtClassImp,txtSubjectImp, txtClassCre, txtStudentIDCre, txtStudentNameCre, txtGKCre, txtCKCre, txtSubjectCre, txtOrtherCre, txtSumCre, txtSubjectHid, txtClassHid, txtStudentIDHid;
     
     public JPanel Import() {
     //Class
@@ -75,33 +76,57 @@ public class DiemSV extends JPanel implements ActionListener{
         pnImport.add(btnImport);
         pnInput.add(pnImport);
         
-        JPanel pnCreate = new JPanel();
-        pnCreate.setLayout(new GridLayout(11, 2, 2, 2));
-        TitledBorder titleCreate = new TitledBorder("Thêm mới");
-        pnCreate.setBorder(titleCreate);
-        JLabel lblClassCre = new JLabel("Tên lớp");
-        txtClassCre = new JTextField(20);
+        JPanel pnUpdate = new JPanel();
+        pnUpdate.setLayout(new GridLayout(11, 2, 2, 2));
+        TitledBorder titleCreate = new TitledBorder("Cập nhật");
+        pnUpdate.setBorder(titleCreate);
         JLabel lblStudentIDCre = new JLabel("Mã sinh viên");
         txtStudentIDCre = new JTextField(20);
+        JLabel lblClassCre = new JLabel("Tên lớp");
+        txtClassCre = new JTextField(20);
+        JLabel lblSubCre = new JLabel("Tên môn học");
+        txtSubjectCre = new JTextField(20);
+        
         JLabel lblStudentNameCre = new JLabel("Họ tên");
         txtStudentNameCre = new JTextField(20);
-        JLabel lblGenderCre = new JLabel("Giới tính");
-        txtGenderCre = new JTextField(20);
-        JLabel lblCMNDCre = new JLabel("CMND");
-        txtCMNDCre = new JTextField(20);
+        txtStudentNameCre.disable();
+        JLabel lblGKCre = new JLabel("Điểm GK");
+        txtGKCre = new JTextField(20);
+        JLabel lblCKCre = new JLabel("Điểm CK");
+        txtCKCre = new JTextField(20);
+        JLabel lblOrtherCre = new JLabel("Điểm khác");
+        txtOrtherCre = new JTextField(20);
+        JLabel lblSumCre = new JLabel("Điểm tổng");
+        txtSumCre = new JTextField(20);
+        btnSearch = new JButton("Tìm");
+        JLabel lblEmpty = new JLabel();
         btnCreate = new JButton("Lưu");
-        pnCreate.add(lblClassCre);
-        pnCreate.add(txtClassCre);
-        pnCreate.add(lblStudentIDCre);
-        pnCreate.add(txtStudentIDCre);
-        pnCreate.add(lblStudentNameCre);
-        pnCreate.add(txtStudentNameCre);
-        pnCreate.add(lblGenderCre);
-        pnCreate.add(txtGenderCre);
-        pnCreate.add(lblCMNDCre);
-        pnCreate.add(txtCMNDCre);
-        pnCreate.add(btnCreate);
-        pnInput.add(pnCreate);
+        txtClassHid = new JTextField();
+        txtClassHid.setVisible(true);
+        txtSubjectHid = new JTextField();
+        txtSubjectHid.setVisible(true);
+        txtStudentIDHid = new JTextField();
+        txtStudentIDHid.setVisible(true);
+        pnUpdate.add(lblStudentIDCre);
+        pnUpdate.add(txtStudentIDCre);
+        pnUpdate.add(lblClassCre);
+        pnUpdate.add(txtClassCre);
+        pnUpdate.add(lblSubCre);
+        pnUpdate.add(txtSubjectCre);
+        pnUpdate.add(btnSearch);
+        pnUpdate.add(lblEmpty);
+        pnUpdate.add(lblStudentNameCre);
+        pnUpdate.add(txtStudentNameCre);
+        pnUpdate.add(lblGKCre);
+        pnUpdate.add(txtGKCre);
+        pnUpdate.add(lblCKCre);
+        pnUpdate.add(txtCKCre);
+        pnUpdate.add(lblOrtherCre);
+        pnUpdate.add(txtOrtherCre);
+        pnUpdate.add(lblSumCre);
+        pnUpdate.add(txtSumCre);
+        pnUpdate.add(btnCreate);
+        pnInput.add(pnUpdate);
 
         JPanel pnListScore = new JPanel();
         TitledBorder titleLitsScore = new TitledBorder("Danh sách điểm");
@@ -118,6 +143,7 @@ public class DiemSV extends JPanel implements ActionListener{
         btnSelect.addActionListener(this);
         btnImport.addActionListener(this);
         btnCreate.addActionListener(this);
+        btnSearch.addActionListener(this);
         return pnScore;
     }
     
@@ -146,15 +172,37 @@ public class DiemSV extends JPanel implements ActionListener{
                 JOptionPane.showMessageDialog(null, "Hãy nhập đầy đủ thông tin !!!");
             }
         }
+        if(e.getSource() == btnSearch){
+            if (!txtStudentIDCre.getText().isEmpty() && !txtSubjectCre.getText().isEmpty() && !txtClassCre.getText().isEmpty()) {
+                Diem d = DiemDAO.layThongTinDiem(txtStudentIDCre.getText(),txtClassCre.getText(),txtSubjectCre.getText());
+                txtClassHid.setText(d.getId().getLop());
+                txtSubjectHid.setText(d.getId().getMonHoc());
+                txtStudentIDHid.setText(d.getId().getMssv());
+                txtStudentNameCre.setText(d.getHoTen());
+                txtGKCre.setText(d.getDiemGk().toString());
+                txtCKCre.setText(d.getDiemCk().toString());
+                txtOrtherCre.setText(d.getDiemKhac().toString());
+                txtSumCre.setText(d.getDiemTong().toString());
+            }
+        }
         if(e.getSource() == btnCreate){
-            if (!txtStudentIDCre.getText().isEmpty() && !txtStudentNameCre.getText().isEmpty() && !txtClassCre.getText().isEmpty()) {
-                Sinhvien sv = new Sinhvien(txtStudentIDCre.getText(), null, txtStudentNameCre.getText(), txtGenderCre.getText(), txtCMNDCre.getText(), txtClassCre.getText(), null, null);
-                boolean create = SinhVienDAO.themSinhVien(sv);
+            if (!txtStudentIDHid.getText().isEmpty() && !txtClassHid.getText().isEmpty() && !txtSubjectHid.getText().isEmpty()) {
+//                DiemId dId = new DiemId(txtStudentIDHid.getText(), txtClassHid.getText(), txtSubjectHid.getText());
+                Diem d = DiemDAO.layThongTinDiem(txtStudentIDHid.getText(), txtClassHid.getText(), txtSubjectHid.getText());
+                d.setDiemGk(Float.parseFloat(txtGKCre.getText()));
+                d.setDiemCk(Float.parseFloat(txtCKCre.getText()));
+                d.setDiemKhac(Float.parseFloat(txtOrtherCre.getText()));
+                d.setDiemTong(Float.parseFloat(txtSumCre.getText()));
+//                Diem d = new Diem(dId, txtStudentNameCre.getText(), Float.parseFloat(txtGKCre.getText()) , Float.parseFloat(txtCKCre.getText()), Float.parseFloat(txtOrtherCre.getText()), Float.parseFloat(txtSumCre.getText()));
+                boolean create = DiemDAO.capNhatDiemSinhVien(d);
                 if(create){
-                    getDanhSachDiem(txtClassCre.getText(),txtSubjectImp.getText());
-                    JOptionPane.showMessageDialog(null, "Thêm thành công !!!");
+                    getDanhSachDiemUpdate(txtStudentIDHid.getText(), txtClassHid.getText(),txtSubjectHid.getText());
+                    txtStudentIDHid.setText("");
+                    txtClassHid.setText("");
+                    txtSubjectHid.setText("");
+                    JOptionPane.showMessageDialog(null, "Cập nhật thành công !!!");
                 }else{
-                    JOptionPane.showMessageDialog(null, "Thêm thất bại !!!");
+                    JOptionPane.showMessageDialog(null, "Cập nhật thất bại !!!");
                 }
             }
         }
@@ -211,6 +259,36 @@ public class DiemSV extends JPanel implements ActionListener{
                 item.getId().getLop(),
                 item.getId().getMonHoc()
             });
+        });
+        table.setModel(model);
+
+    }
+    
+    public void getDanhSachDiemUpdate(String studentID, String className, String subjectName) {
+        //sp.setVisible(true);
+        String[] columns = new String[]{
+            "Mã sinh viên",
+            "Họ tên",
+            "Điểm GK",
+            "Điểm CK",
+            "Điểm khác",
+            "Điểm tổng",
+            "Lớp",
+            "Môn học"
+        };
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(columns);
+
+        Diem scores = null;
+        scores = DiemDAO.layThongTinDiem(studentID,className,subjectName);
+        model.addRow(new Object[]{scores.getId().getMssv(),
+            scores.getHoTen(),
+            scores.getDiemGk(),
+            scores.getDiemGk(),
+            scores.getDiemKhac(),
+            scores.getDiemTong(),
+            scores.getId().getLop(),
+            scores.getId().getMonHoc()
         });
         table.setModel(model);
 
